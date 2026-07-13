@@ -100,7 +100,7 @@
         const msg = `Hi! I want to order ${qty}x ${pName}, ${col} color, ${frag} fragrance. Total: ₹${pPrice * qty}`;
         
         navigator.clipboard.writeText(msg).then(() => {
-            alert("Order copied to clipboard! Please PASTE this in our DM.");
+            alert("Order copied to your clipboard! \n\nNow, go to our DM, click 'Message', and PASTE your order.");
             window.open('https://instagram.com/direct/t/fineline_candles/', '_blank');
         });
         closeModal();
