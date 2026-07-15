@@ -10,14 +10,14 @@
     header { background: #111; color: white; padding: 20px; text-align: center; }
     .section { padding: 50px 20px; max-width: 1100px; margin: auto; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-    .card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 20px; text-align: center; transition: transform 0.3s ease; }
-    .card:hover { transform: scale(1.05); }
+    .card { background: white; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); padding: 20px; text-align: center; transition: 0.3s; }
+    .card:hover { transform: scale(1.03); }
     .product-img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; margin-bottom: 15px; }
-    .btn { cursor: pointer; padding: 12px 22px; background: #111; color: white; border: none; border-radius: 10px; width: 100%; margin-top: 10px; transition: background 0.3s; }
+    .btn { cursor: pointer; padding: 12px 22px; background: #111; color: white; border: none; border-radius: 10px; width: 100%; margin-top: 10px; }
     .btn:hover { background: #e89cae; }
-    #modalOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; }
-    .modal { background: white; padding: 40px; border-radius: 20px; width: 90%; max-width: 400px; text-align: center; transform: translateY(-50px); transition: transform 0.3s; }
-    .qty-btn { padding: 5px 15px; cursor: pointer; border: 1px solid #ddd; background: #eee; border-radius: 5px; }
+    .cart-float { position: fixed; bottom: 20px; right: 20px; background: #e89cae; color: white; padding: 15px 25px; border-radius: 50px; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-weight: 600; }
+    footer { text-align: center; padding: 40px; background: #111; color: white; margin-top: 50px; }
+    .footer-link { color: #e89cae; text-decoration: none; font-weight: bold; }
 </style>
 </head>
 <body>
@@ -26,84 +26,72 @@
 
 <section class="section">
     <div class="grid">
-        <div class="card"><img class="product-img" src="Bubble.png" alt="Bubble"><h3>Bubble Candle</h3><p>₹150</p><button class="btn" onclick="openModal('Bubble Candle', 150)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Mini Bubble.png" alt="Mini"><h3>Mini Bubble</h3><p>₹220/4 pcs</p><button class="btn" onclick="openModal('Mini Bubble (4pcs)', 220)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Peony.png" alt="Peony"><h3>Peony Flower</h3><p>₹60</p><button class="btn" onclick="openModal('Peony Flower', 60)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Daisy.png" alt="Daisy"><h3>Daisy Flower</h3><p>₹30</p><button class="btn" onclick="openModal('Daisy Flower', 30)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Lotus Pond.png" alt="Lotus"><h3>Lotus Pond</h3><p>₹150</p><button class="btn" onclick="openModal('Lotus Pond', 150)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Rose.png" alt="Rose"><h3>Rose Candle</h3><p>₹100</p><button class="btn" onclick="openModal('Rose Candle', 100)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Pillar.png" alt="Pillar"><h3>Ribbed Pillar</h3><p>₹650</p><button class="btn" onclick="openModal('Ribbed Pillar', 650)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Ribbed.png" alt="Ribbed"><h3>Ribbed Cylinder</h3><p>₹300</p><button class="btn" onclick="openModal('Ribbed Cylinder', 300)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Teddy.png" alt="Teddy"><h3>Teddy Candle</h3><p>₹80</p><button class="btn" onclick="openModal('Teddy Candle', 80)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Daisy Bowl.png" alt="Daisy"><h3>Daisy Bowl</h3><p>₹180</p><button class="btn" onclick="openModal('Daisy Bowl', 180)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Daisy Pot.png" alt="Daisy"><h3>Daisy Pot</h3><p>₹80</p><button class="btn" onclick="openModal('Daisy Pot', 80)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Golden Gloom.png" alt="Golden"><h3>Golden Gloom</h3><p>₹250</p><button class="btn" onclick="openModal('Golden Gloom', 250)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Peony Jar.png" alt="Peony"><h3>Peony Jar</h3><p>₹500</p><button class="btn" onclick="openModal('Peony Jar', 500)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Peony Bowl.png" alt="Peony"><h3>Peony Bowl</h3><p>₹180</p><button class="btn" onclick="openModal('Peony Bowl', 180)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Laddoo.png" alt="Laddoo"><h3>Laddoo Candle</h3><p>₹120/4 pcs</p><button class="btn" onclick="openModal('Laddoo Candle (4pcs)', 120)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Vanilla Swirl.png" alt="Vanilla"><h3>Vanilla Swirl</h3><p>₹250</p><button class="btn" onclick="openModal('Vanilla Swirl', 250)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Cupcake.png" alt="Cupcake"><h3>Cupcake Candle</h3><p>₹80</p><button class="btn" onclick="openModal('Cupcake Candle', 80)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Rasmalai.png" alt="Rasmalai"><h3>Rasmalai Candle</h3><p>₹60</p><button class="btn" onclick="openModal('Rasmalai Candle', 60)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Floral Heart.png" alt="Heart"><h3>Floral Heart</h3><p>₹80</p><button class="btn" onclick="openModal('Floral Heart', 80)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Verdent Rose.png" alt="Rose"><h3>Verdent Rose</h3><p>₹80</p><button class="btn" onclick="openModal('Verdent Rose', 80)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Diya.png" alt="Diya"><h3>Diya Candle</h3><p>₹20/pc</p><button class="btn" onclick="openModal('Diya Candle', 20)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Stand Diya.png" alt="Stand"><h3>Stand Diya</h3><p>₹60/pc</p><button class="btn" onclick="openModal('Stand Diya Candle', 60)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Berry Blast.png" alt="Berry"><h3>Berry Blast</h3><p>₹180</p><button class="btn" onclick="openModal('Berry Blast', 180)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Cylindrical Heart.png" alt="Heart"><h3>Cylindrical Heart</h3><p>₹140</p><button class="btn" onclick="openModal('Cylindrical Heart', 140)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Bouquet.png" alt="Bouquet"><h3>Peony Bouquet</h3><p>₹100</p><button class="btn" onclick="openModal('Peony Bouquet', 100)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Tulip Bouquet.png" alt="Tulip"><h3>Tulip Bouquet</h3><p>₹100</p><button class="btn" onclick="openModal('Tulip Bouquet', 100)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Tulip Jar.png" alt="Tulip"><h3>Tulip Jar</h3><p>₹250</p><button class="btn" onclick="openModal('Tulip Jar', 250)">Customize & Order</button></div>
-        <div class="card"><img class="product-img" src="Summer Blush.png" alt="Summer"><h3>Summer Blush</h3><p>₹180</p><button class="btn" onclick="openModal('Summer Blush', 180)">Customize & Order</button></div>
+        <div class="card"><img class="product-img" src="Bubble.png" alt="Bubble"><h3>Bubble Candle</h3><p>₹150</p><button class="btn" onclick="openModal('Bubble Candle', 150)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Mini Bubble.png" alt="Mini"><h3>Mini Bubble</h3><p>₹220/4 pcs</p><button class="btn" onclick="openModal('Mini Bubble (4pcs)', 220)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Peony.png" alt="Peony"><h3>Peony Flower</h3><p>₹60</p><button class="btn" onclick="openModal('Peony Flower', 60)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Daisy.png" alt="Daisy"><h3>Daisy Flower</h3><p>₹30</p><button class="btn" onclick="openModal('Daisy Flower', 30)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Lotus Pond.png" alt="Lotus"><h3>Lotus Pond</h3><p>₹150</p><button class="btn" onclick="openModal('Lotus Pond', 150)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Rose.png" alt="Rose"><h3>Rose Candle</h3><p>₹100</p><button class="btn" onclick="openModal('Rose Candle', 100)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Pillar.png" alt="Pillar"><h3>Ribbed Pillar</h3><p>₹650</p><button class="btn" onclick="openModal('Ribbed Pillar', 650)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Ribbed.png" alt="Ribbed"><h3>Ribbed Cylinder</h3><p>₹300</p><button class="btn" onclick="openModal('Ribbed Cylinder', 300)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Teddy.png" alt="Teddy"><h3>Teddy Candle</h3><p>₹80/pc</p><button class="btn" onclick="openModal('Teddy Candle', 80)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Daisy Bowl.png" alt="Daisy"><h3>Daisy Bowl</h3><p>₹180</p><button class="btn" onclick="openModal('Daisy Bowl', 180)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Daisy Pot.png" alt="Daisy"><h3>Daisy Pot</h3><p>₹80</p><button class="btn" onclick="openModal('Daisy Pot', 80)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Golden Gloom.png" alt="Golden"><h3>Golden Gloom</h3><p>₹250</p><button class="btn" onclick="openModal('Golden Gloom', 250)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Peony Jar.png" alt="Peony"><h3>Peony Jar</h3><p>₹500</p><button class="btn" onclick="openModal('Peony Jar', 500)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Peony Bowl.png" alt="Peony"><h3>Peony Bowl</h3><p>₹180</p><button class="btn" onclick="openModal('Peony Bowl', 180)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Laddoo.png" alt="Laddoo"><h3>Laddoo Candle</h3><p>₹120/4 pcs</p><button class="btn" onclick="openModal('Laddoo Candle (4pcs)', 120)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Vanilla Swirl.png" alt="Vanilla"><h3>Vanilla Swirl</h3><p>₹250</p><button class="btn" onclick="openModal('Vanilla Swirl', 250)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Cupcake.png" alt="Cupcake"><h3>Cupcake Candle</h3><p>₹80</p><button class="btn" onclick="openModal('Cupcake Candle', 80)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Rasmalai.png" alt="Rasmalai"><h3>Rasmalai Candle</h3><p>₹60</p><button class="btn" onclick="openModal('Rasmalai Candle', 60)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Floral Heart.png" alt="Heart"><h3>Floral Heart</h3><p>₹80</p><button class="btn" onclick="openModal('Floral Heart', 80)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Verdent Rose.png" alt="Rose"><h3>Verdent Rose</h3><p>₹80</p><button class="btn" onclick="openModal('Verdent Rose', 80)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Diya.png" alt="Diya"><h3>Diya Candle</h3><p>₹20/pc</p><button class="btn" onclick="openModal('Diya Candle', 20)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Stand Diya.png" alt="Stand"><h3>Stand Diya</h3><p>₹60/pc</p><button class="btn" onclick="openModal('Stand Diya Candle', 60)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Berry Blast.png" alt="Berry"><h3>Berry Blast</h3><p>₹180</p><button class="btn" onclick="openModal('Berry Blast', 180)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Cylindrical Heart.png" alt="Heart"><h3>Cylindrical Heart</h3><p>₹140</p><button class="btn" onclick="openModal('Cylindrical Heart', 140)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Bouquet.png" alt="Bouquet"><h3>Peony Bouquet</h3><p>₹100</p><button class="btn" onclick="openModal('Peony Bouquet', 100)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Tulip Bouquet.png" alt="Tulip"><h3>Tulip Bouquet</h3><p>₹100</p><button class="btn" onclick="openModal('Tulip Bouquet', 100)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Tulip Jar.png" alt="Tulip"><h3>Tulip Jar</h3><p>₹250</p><button class="btn" onclick="openModal('Tulip Jar', 250)">Customize</button></div>
+        <div class="card"><img class="product-img" src="Summer Blush.png" alt="Summer"><h3>Summer Blush</h3><p>₹180</p><button class="btn" onclick="openModal('Summer Blush', 180)">Customize</button></div>
     </div>
 </section>
 
-<div id="modalOverlay" onclick="closeModal(event)">
-    <div class="modal" onclick="event.stopPropagation()">
+<div class="cart-float" onclick="finalizeOrder()">🛒 View Cart (<span id="cartCount">0</span>)</div>
+
+<!-- Modal -->
+<div id="modalOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:2000; justify-content:center; align-items:center;">
+    <div class="card" style="width:90%; max-width:400px;">
         <h2 id="modalTitle"></h2>
-        <p>Base Price: ₹<span id="basePrice"></span></p>
         <select id="frag" style="width:100%; padding:10px; margin:5px 0;">
             <option value="Jasmine">Jasmine</option><option value="Rose">Rose</option><option value="Lavender">Lavender</option><option value="Lemongrass">Lemongrass</option><option value="Fresh Lime">Fresh Lime</option><option value="Fruit Basket">Fruit Basket</option>
         </select>
         <select id="col" style="width:100%; padding:10px; margin:5px 0;">
             <option value="Red">Red</option><option value="Violet">Violet</option><option value="Orange">Orange</option><option value="Yellow">Yellow</option><option value="Blue">Blue</option><option value="Green">Green</option>
         </select>
-        <div style="margin:20px 0; font-size: 1.2rem;">
-            Quantity: <button class="qty-btn" onclick="updateQty(-1)">-</button> <span id="qtyVal">1</span> <button class="qty-btn" onclick="updateQty(1)">+</button>
-        </div>
-        <h3 style="color:#e89cae;">Total: ₹<span id="totalPrice"></span></h3>
-        <button class="btn" style="background:#e89cae;" onclick="sendOrder()">Confirm Order via Instagram</button>
+        <div style="margin:20px 0;">Qty: <button onclick="qtyChange(-1)">-</button> <span id="qtyVal">1</span> <button onclick="qtyChange(1)">+</button></div>
+        <button class="btn" style="background:#e89cae;" onclick="addToCart()">Add to Cart</button>
+        <button class="btn" onclick="closeModal()">Close</button>
     </div>
 </div>
 
-<script>
-    let pName, pPrice, qty = 1;
-    const overlay = document.getElementById('modalOverlay');
+<footer>
+    <p>© 2026 Fineline Candles & Crafts</p>
+    <p>Follow us on Instagram: <a href="https://instagram.com/fineline_candles" target="_blank" class="footer-link">@fineline_candles</a></p>
+</footer>
 
-    function openModal(name, price) {
-        pName = name; pPrice = price; qty = 1;
-        document.getElementById('modalTitle').innerText = name;
-        document.getElementById('basePrice').innerText = price;
-        calc();
-        overlay.style.display = 'flex';
-        setTimeout(() => { overlay.style.opacity = '1'; overlay.querySelector('.modal').style.transform = 'translateY(0)'; }, 10);
-    }
-    function updateQty(val) { qty = Math.max(1, qty + val); document.getElementById('qtyVal').innerText = qty; calc(); }
-    function calc() { document.getElementById('totalPrice').innerText = pPrice * qty; }
-    function closeModal(event) {
-        overlay.style.opacity = '0';
-        overlay.querySelector('.modal').style.transform = 'translateY(-50px)';
-        setTimeout(() => { overlay.style.display = 'none'; }, 300);
-    }
-    function sendOrder() {
-        const frag = document.getElementById('frag').value;
-        const col = document.getElementById('col').value;
-        const msg = `Hi! I want to order ${qty}x ${pName}, ${col} color, ${frag} fragrance. Total: ₹${pPrice * qty}`;
-        
-        navigator.clipboard.writeText(msg).then(() => {
-            alert("Order copied to your clipboard! \n\nNow, go to our DM, click 'Message', and PASTE your order.");
-            window.open('https://instagram.com/direct/t/fineline_candles/', '_blank');
-        });
-        closeModal();
+<script>
+    let cart = [], pName, pPrice, qty = 1;
+    function openModal(name, price) { pName = name; pPrice = price; qty = 1; document.getElementById('modalTitle').innerText = name; document.getElementById('modalOverlay').style.display = 'flex'; }
+    function qtyChange(val) { qty = Math.max(1, qty + val); document.getElementById('qtyVal').innerText = qty; }
+    function addToCart() { cart.push({ name: pName, price: pPrice, qty: qty, frag: document.getElementById('frag').value, col: document.getElementById('col').value }); document.getElementById('cartCount').innerText = cart.length; closeModal(); alert(pName + " added!"); }
+    function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
+    function finalizeOrder() {
+        if(cart.length === 0) { alert("Cart is empty!"); return; }
+        let msg = "Hi! I want to order:\n"; let total = 0;
+        cart.forEach(item => { msg += `- ${item.qty}x ${item.name} (${item.col}, ${item.frag}) - ₹${item.price * item.qty}\n`; total += (item.price * item.qty); });
+        msg += `\nTotal: ₹${total}\n\nGo to DM and PASTE this order.`;
+        navigator.clipboard.writeText(msg).then(() => { alert("Order copied! Paste it in our Instagram DM."); window.open('https://instagram.com/direct/t/fineline_candles/', '_blank'); });
     }
 </script>
 
