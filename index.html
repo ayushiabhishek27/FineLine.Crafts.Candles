@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fineline Candles & Crafts</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
     :root { --primary: #e89cae; --dark: #111; }
     body { margin: 0; font-family: 'Poppins', sans-serif; background: #fffaf7; }
-    header { background: var(--dark); color: white; padding: 20px; text-align: center; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 40px 20px; max-width: 1200px; margin: auto; }
-    .card { background: white; border-radius: 16px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); text-align: center; }
-    .product-img { width: 100%; height: 200px; object-fit: cover; border-radius: 12px; }
-    .btn { cursor: pointer; padding: 10px; background: var(--dark); color: white; border: none; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: 600; }
-    .select-style { width: 100%; padding: 8px; margin: 5px 0 10px 0; border-radius: 5px; border: 1px solid #ccc; }
-    .label { font-weight: 600; font-size: 0.9em; display: block; margin-top: 5px; }
-    #cartDrawer { position: fixed; top: 0; right: -400px; width: 380px; height: 100%; background: white; box-shadow: -5px 0 20px rgba(0,0,0,0.1); transition: 0.4s; z-index: 500; padding: 25px; overflow-y: auto; }
+    header { background: var(--dark); color: white; padding: 15px; text-align: center; font-size: 1.2rem; }
+    
+    /* Responsive Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 15px; max-width: 1200px; margin: auto; }
+    .card { background: white; border-radius: 12px; padding: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; }
+    .product-img { width: 100%; height: 140px; object-fit: cover; border-radius: 8px; }
+    
+    .btn { cursor: pointer; padding: 8px; background: var(--dark); color: white; border: none; border-radius: 6px; width: 100%; margin-top: 5px; font-weight: 600; font-size: 0.9rem; }
+    
+    /* Modal & Cart */
+    #modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center; }
+    .modal-box { background: white; padding: 20px; border-radius: 15px; width: 90%; max-width: 350px; max-height: 80vh; overflow-y: auto; text-align: center; }
+    .select-style { width: 100%; padding: 8px; margin: 5px 0 10px 0; border-radius: 5px; border: 1px solid #ccc; font-size: 1rem; }
+    .label { font-weight: 600; font-size: 0.85em; display: block; margin-top: 5px; text-align: left; }
+    
+    #cartDrawer { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: white; z-index: 500; padding: 20px; box-sizing: border-box; overflow-y: auto; transition: 0.4s; }
     #cartDrawer.open { right: 0; }
 </style>
 </head>
@@ -23,7 +32,7 @@
 <header><h1>Fineline Candles & Crafts</h1></header>
 <div class="grid" id="productGrid"></div>
 
-<button onclick="toggleCart()" style="position:fixed; bottom:30px; right:30px; background:var(--primary); color:white; border:none; padding:15px 30px; border-radius:30px; z-index:400; cursor:pointer;">🛒 Cart (<span id="cartCount">0</span>)</button>
+<button onclick="toggleCart()" style="position:fixed; bottom:20px; right:20px; background:var(--primary); color:white; border:none; padding:12px 20px; border-radius:30px; z-index:400; cursor:pointer;">🛒 Cart (<span id="cartCount">0</span>)</button>
 
 <div id="cartDrawer">
     <h2>Your Cart</h2>
@@ -33,8 +42,8 @@
     <button class="btn" style="background:#666;" onclick="toggleCart()">Close</button>
 </div>
 
-<div id="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; justify-content:center; align-items:center;">
-    <div style="background:white; padding:30px; border-radius:20px; width:350px; text-align:center;">
+<div id="modal">
+    <div class="modal-box">
         <h2 id="mTitle"></h2>
         <div id="dynamicFields" style="text-align: left;"></div>
         <label class="label">Quantity:</label>
@@ -52,19 +61,19 @@
     
     const products = [
         {name: "Bubble Candle", price: 150, type: "solid_split", img: "Bubble.png"}, {name: "Mini Bubble (4pcs)", price: 220, type: "solid_split", img: "Mini Bubble.png"},
-        {name: "Peony Flower", price: 60, type: "solid_split", img: "Peony.png"}, {name: "Daisy Flower", price: 30, type: "center_petal", img: "Daisy.png"},
-        {name: "Lotus Pond", price: 150, type: "frag", img: "Lotus Pond.png"}, {name: "Rose Candle", price: 100, type: "solid", img: "Rose.png"},
+        {name: "Peony Flower", price: 80, type: "solid_split", img: "Peony.png"}, {name: "Daisy Flower", price: 40, type: "center_petal", img: "Daisy.png"},
+        {name: "Lotus Pond", price: 150, type: "frag", img: "Lotus Pond.png"}, {name: "Rose Candle", price: 80, type: "solid", img: "Rose.png"},
         {name: "Ribbed Pillar", price: 650, type: "solid", img: "Pillar.png"}, {name: "Ribbed Cylinder", price: 300, type: "solid", img: "Ribbed.png"},
-        {name: "Teddy Candle (1pc)", price: 80, type: "solid", img: "Teddy.png"}, {name: "Daisy Bowl", price: 180, type: "base_center_petal", img: "Daisy Bowl.png"},
+        {name: "Teddy Candle", price: 80, type: "solid", img: "Teddy.png"}, {name: "Daisy Bowl", price: 180, type: "base_center_petal", img: "Daisy Bowl.png"},
         {name: "Daisy Pot", price: 80, type: "base_center_petal", img: "Daisy Pot.png"}, {name: "Golden Gloom", price: 250, type: "base_center_petal", img: "Golden gloom.png"},
         {name: "Peony Jar", price: 500, type: "solid_split_base", img: "Peony Jar.png"}, {name: "Peony Bowl", price: 180, type: "solid_split_base", img: "Peony Bowl.png"},
         {name: "Laddoo Candle (4pcs)", price: 120, type: "frag", img: "Laddoo.png"}, {name: "Vanilla Swirl", price: 250, type: "base_top", img: "Vanilla Swirl.png"},
         {name: "Cupcake Candle", price: 80, type: "base_top", img: "Cupcake.png"}, {name: "Rasmalai Candle", price: 60, type: "frag", img: "Rasmalai.png"},
         {name: "Floral Heart", price: 80, type: "solid", img: "Floral Heart.png"}, {name: "Verdent Rose", price: 80, type: "solid", img: "Verdent Rose.png"},
-        {name: "Diya Candle", price: 20, type: "frag", img: "Diya.png"}, {name: "Stand Diya", price: 60, type: "frag", img: "Stand Diya.png"},
+        {name: "Diya Candle (1pc)", price: 20, type: "frag", img: "Diya.png"}, {name: "Stand Diya", price: 60, type: "frag", img: "Stand Diya.png"},
         {name: "Berry Blast", price: 180, type: "frag", img: "Berry Blast.png"}, {name: "Cylindrical Heart", price: 140, type: "solid", img: "Cylindrical Heart.png"},
-        {name: "Peony Bouquet", price: 100, type: "bouquet", img: "Bouquet.png"}, {name: "Tulip Flowers", price: 100, type: "solid", img: "Tulip Flowers.png"},
-        {name: "Tulip Jar", price: 250, type: "flower_base", img: "Tulip Jar.png"}, {name: "Summer Blush", price: 180, type: "solid_split_base", img: "Summer Blush.png"}
+        {name: "Peony Bouquet", price: 100, type: "bouquet", img: "Bouquet.png"}, {name: "Tulip Flowers", price: 100, type: "solid", img: "Tulip Bouquet.png"},
+        {name: "Tulip Jar", price: 250, type: "flower_base", img: "Tulip Jar.png"}, {name: "Summer Blush", price: 250, type: "solid_split_base", img: "Summer Blush.png"}
     ];
 
     let cart = [];
@@ -102,7 +111,7 @@
         let list = document.getElementById('cartList'), total = 0; list.innerHTML = "";
         cart.forEach((item, idx) => {
             total += item.price * item.qty;
-            list.innerHTML += `<div style="border-bottom:1px solid #ccc; padding:10px 0;"><b>${item.name}</b> (Qty: ${item.qty})<br>${item.details} <b>₹${item.price * item.qty}</b><br><button onclick="cart.splice(${idx},1); renderCart(); document.getElementById('cartCount').innerText=cart.length;">Remove</button></div>`;
+            list.innerHTML += `<div style="border-bottom:1px solid #ccc; padding:10px 0;"><b>${item.name}</b> (Qty: ${item.qty})<br><small>${item.details}</small><br><b>₹${item.price * item.qty}</b><br><button onclick="cart.splice(${idx},1); renderCart(); document.getElementById('cartCount').innerText=cart.length;">Remove</button></div>`;
         });
         document.getElementById('cartTotal').innerText = "Total: ₹" + total;
     }
